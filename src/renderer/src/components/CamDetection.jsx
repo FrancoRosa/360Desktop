@@ -17,6 +17,7 @@ import SpeedValue from './SpeedValue'
 import CamSelector from './CamSelector'
 import Clock from './Clock'
 import useLocal from '../js/storage'
+// import model from '../assets/model.json'
 
 const Cam = ({ resolution, lines, config, page, setPerson, gps }) => {
   const { vt1, vt2, ht, vb1, vb2, hb } = lines
@@ -133,7 +134,9 @@ const Cam = ({ resolution, lines, config, page, setPerson, gps }) => {
 
   return (
     <div>
-      <p style={{ color: 'white', fontSize: '2em', textAlign: 'center' }}>YEAH LE TONGE</p>
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <img src="icon.png" style={{ width: '2em', height: '2em' }} />
+      </div>
       <div style={style}>
         {config.camera == 'single' ? (
           <Webcam

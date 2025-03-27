@@ -22,7 +22,7 @@ function App() {
   })
   const [page, setPage] = useState('main') //main, config, reports
   const [config, setConfig] = useLocal('config', {
-    beep: true,
+    beep: false,
     detection: true,
     mirror: false,
     camera: 'single'

@@ -10,6 +10,8 @@ files:
   - '!{.env,.env.*,.npmrc,pnpm-lock.yaml}'
 asarUnpack:
   - resources/**
+  - public/**
+  - src/renderer/public/**
 win:
   executableName: 360desktop
 nsis:
@@ -29,8 +31,8 @@ dmg:
   artifactName: ${name}-${version}.${ext}
 linux:
   target:
-    - AppImage
-    - snap
+    # - AppImage
+    # - snap
     - deb
   maintainer: electronjs.org
   category: Utility
