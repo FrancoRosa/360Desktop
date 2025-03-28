@@ -1,25 +1,39 @@
-import { ArrowBigLeft, CogIcon, FileBarChart2Icon } from "lucide-react";
-import Theme from "./Theme";
-import PropTypes from "prop-types";
-import ButtonIcon from "./elements/ButtonIcon";
+import { ArrowBigLeft, CircleXIcon, CogIcon, FileBarChart2Icon, PowerOffIcon } from 'lucide-react'
+import Theme from './Theme'
+import PropTypes from 'prop-types'
+import ButtonIcon from './elements/ButtonIcon'
 // import { start, stop, keep } from "../js/record";
 // import Button from "./elements/Button";
+const handlePower = () => {
+  console.log('power_off')
+  window.electron.ipcRenderer.send('power_off')
+}
 
+const handleQuit = () => {
+  console.log('quit')
+  window.electron.ipcRenderer.send('quit')
+}
 const Navigation = ({ page, setPage }) => {
   return (
     <div className="flex justify-between w-full absolute bottom-0 z-10 p-2">
       <div className="flex justify-around">
-        {page === "main" ? (
+        {page === 'main' ? (
           <div className="flex gap-1">
-            <ButtonIcon onClick={() => setPage("reports")}>
+            <ButtonIcon onClick={() => setPage('reports')}>
               <FileBarChart2Icon />
             </ButtonIcon>
-            <ButtonIcon onClick={() => setPage("config")}>
+            <ButtonIcon onClick={() => setPage('config')}>
               <CogIcon />
+            </ButtonIcon>
+            <ButtonIcon onClick={handlePower}>
+              <PowerOffIcon className="text-red-400" />
+            </ButtonIcon>
+            <ButtonIcon onClick={handleQuit}>
+              <CircleXIcon className="text-red-400" />
             </ButtonIcon>
           </div>
         ) : (
-          <ButtonIcon onClick={() => setPage("main")}>
+          <ButtonIcon onClick={() => setPage('main')}>
             <ArrowBigLeft />
           </ButtonIcon>
         )}
@@ -31,12 +45,12 @@ const Navigation = ({ page, setPage }) => {
       </div>
       <Theme />
     </div>
-  );
-};
+  )
+}
 
 Navigation.propTypes = {
   page: PropTypes.string.isRequired,
-  setPage: PropTypes.func.isRequired,
-};
+  setPage: PropTypes.func.isRequired
+}
 
-export default Navigation;
+export default Navigation

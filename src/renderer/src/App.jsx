@@ -10,7 +10,6 @@ import { Disc } from 'lucide-react'
 import { generateFilename, keep, stop, start as startRecord } from './js/record'
 
 function App() {
-  const ipcHandle = () => window.electron.ipcRenderer.send('ping')
   const resolution = {
     width: 1280,
     height: 720

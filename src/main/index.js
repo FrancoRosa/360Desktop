@@ -1,7 +1,8 @@
-import { protocol, app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
+const { exec } = require('child_process')
 
 function createWindow() {
   // Create the browser window.
@@ -35,6 +36,12 @@ function createWindow() {
   }
 }
 
+const gotTheLock = app.requestSingleInstanceLock()
+
+if (!gotTheLock) {
+  app.quit() // Exit if another instance is running
+}
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -50,8 +57,29 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  // IPC test
-  ipcMain.on('ping', () => console.log('pong ou yeah'))
+  // IPC connector
+  ipcMain.on('quit', () => app.quit())
+  ipcMain.on('power_off', () => {
+    const desktopEnv = process.env.XDG_CURRENT_DESKTOP || process.env.DESKTOP_SESSION || 'unknown'
+
+    console.log('Detected Desktop Environment:', desktopEnv) // Debugging
+
+    if (process.platform === 'win32') {
+      exec('shutdown /i') // Open Windows Shutdown dialog
+    } else if (process.platform === 'linux') {
+      if (desktopEnv.includes('GNOME')) {
+        exec('gnome-session-quit') // GNOME shutdown dialog
+      } else if (desktopEnv.includes('XFCE')) {
+        exec('xfce4-session-logout') // XFCE shutdown dialog
+      } else if (desktopEnv.includes('LXDE')) {
+        console.log('lxsession-logout') // LXDE shutdown menu
+        exec('lxsession-logout') // LXDE shutdown menu
+      } else {
+        console.log('Unsupported DE, using fallback shutdown command.')
+        exec('shutdown -h now') // Fallback: Immediate shutdown
+      }
+    }
+  })
 
   createWindow()
 
