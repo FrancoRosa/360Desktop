@@ -54,7 +54,7 @@ const Cam = ({ resolution, lines, config, page, setPerson, gps }) => {
     cocossd
       .load({
         base: 'lite_mobilenet_v2',
-        modelUrl: '/model.json'
+        modelUrl: './model.json'
       })
       .then((res) => {
         console.log('... coco loaded')
@@ -134,9 +134,7 @@ const Cam = ({ resolution, lines, config, page, setPerson, gps }) => {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <img src="icon.png" style={{ width: '2em', height: '2em' }} />
-      </div>
+      <div style={{ display: 'flex', justifyContent: 'center' }}></div>
       <div style={style}>
         {config.camera == 'single' ? (
           <Webcam
