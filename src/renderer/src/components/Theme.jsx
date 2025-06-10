@@ -35,13 +35,17 @@ const Theme = () => {
 
   return (
     <div className="flex w-full justify-end gap-1 pt-2">
-      <ButtonIcon onClick={handleLight}>
-        <SunIcon />
-      </ButtonIcon>
-      <ButtonIcon onClick={handleDark}>
-        <MoonIcon />
-      </ButtonIcon>
-      <ButtonIcon onClick={handleToggleFullScreen}>
+      {theme === 'light' ? (
+        <ButtonIcon onClick={handleDark} title="Dark theme">
+          <MoonIcon />
+        </ButtonIcon>
+      ) : (
+        <ButtonIcon onClick={handleLight} title="Light theme">
+          <SunIcon />
+        </ButtonIcon>
+      )}
+
+      <ButtonIcon onClick={handleToggleFullScreen} title="Full screen">
         <MonitorIcon />
       </ButtonIcon>
     </div>

@@ -19,21 +19,21 @@ const Navigation = ({ page, setPage }) => {
       <div className="flex justify-around">
         {page === 'main' ? (
           <div className="flex gap-1">
-            <ButtonIcon onClick={() => setPage('reports')}>
+            <ButtonIcon onClick={() => setPage('reports')} title={'Reports'}>
               <FileBarChart2Icon />
             </ButtonIcon>
-            <ButtonIcon onClick={() => setPage('config')}>
+            <ButtonIcon onClick={() => setPage('config')} title={'Configuration'}>
               <CogIcon />
             </ButtonIcon>
-            <ButtonIcon onClick={handlePower}>
+            <ButtonIcon onClick={handlePower} title={'Power off device'}>
               <PowerOffIcon className="text-red-400" />
             </ButtonIcon>
-            <ButtonIcon onClick={handleQuit}>
+            <ButtonIcon onClick={handleQuit} title="Close application">
               <CircleXIcon className="text-red-400" />
             </ButtonIcon>
           </div>
         ) : (
-          <ButtonIcon onClick={() => setPage('main')}>
+          <ButtonIcon onClick={() => setPage('main')} title="Return to main screen">
             <ArrowBigLeft />
           </ButtonIcon>
         )}
